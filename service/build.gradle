@@ -1,0 +1,20 @@
+dependencies {
+    implementation project(':domain')
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+//    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation ('org.springframework.boot:spring-boot-starter-web-services') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    implementation 'org.springframework.ws:spring-ws-core'
+    implementation 'org.glassfish.jaxb:jaxb-runtime'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

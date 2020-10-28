@@ -1,0 +1,10 @@
+include ':domain'
+include ':service'
+include ':soap'
+include ':controller'
+//include ':adapter:consumer:soap'
+//include ':adapter:controller'
+include ':application'
+
+project(":controller").projectDir = file("adapter/controller")
+project(":soap").projectDir = file("adapter/consumer/soap")

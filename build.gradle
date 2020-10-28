@@ -1,0 +1,28 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}" apply false
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+}
+
+subprojects {
+
+    group = 'ru.vtb.chat'
+    version = '0.0.1-SNAPSHOT'
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+//    apply plugin: 'java-library'
+
+    repositories {
+        jcenter()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+        }
+    }
+
+
+}
+
+

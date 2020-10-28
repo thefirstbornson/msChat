@@ -1,0 +1,33 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation project(':service')
+    implementation project(':domain')
+    implementation project(':controller')
+    implementation project(':soap')
+    implementation ('org.springframework.boot:spring-boot-starter-web')
+
+
+    implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"
+    implementation("com.google.guava:guava:30.0-jre")
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'junit' // excluding junit 4
+    }
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.4.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:2.23.0'
+    testImplementation 'com.tngtech.archunit:archunit:0.9.3'
+    testImplementation 'de.adesso:junit-insights:1.1.0'
+    testImplementation 'com.h2database:h2'
+
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'de.adesso.junitinsights.enabled', 'true'
+}
+

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://rostelecom-cc.ru/ws/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:sch="http://localhost/wservies/" targetNamespace="http://rostelecom-cc.ru/ws/">
+<wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://localhost/wservies/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:sch="http://localhost/wservies/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://localhost/wservies/">
+<xs:element name="transferUserContexRequest">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="1" name="UserName">
+<xs:complexType>
+<xs:sequence>
+  <xs:element minOccurs="1" name="FirstName" type="xs:string" /> 
+  <xs:element minOccurs="1" name="LastName" type="xs:string" /> 
+  <xs:element minOccurs="0" name="Patronymic" type="xs:string" /> 
+  </xs:sequence>
+  </xs:complexType>
+  </xs:element>
+<xs:element minOccurs="1" name="UserContext">
+<xs:complexType>
+<xs:sequence>
+  <xs:element name="Vtb24BOLogin" type="xs:string" /> 
+  <xs:element name="BKOId" type="xs:string" /> 
+  <xs:element name="VOToken" type="xs:string" /> 
+  </xs:sequence>
+  </xs:complexType>
+  </xs:element>
+<xs:element name="Clients">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="Client">
+<xs:complexType>
+<xs:sequence>
+  <xs:element name="INN" type="xs:string" /> 
+  <xs:element name="BKOId" type="xs:string" /> 
+  </xs:sequence>
+  </xs:complexType>
+  </xs:element>
+  </xs:sequence>
+  </xs:complexType>
+  </xs:element>
+  </xs:sequence>
+  </xs:complexType>
+  </xs:element>
+  </xs:schema>
+  </wsdl:types>
+<wsdl:message name="transferUserContexRequest">
+  <wsdl:part element="sch:transferUserContexRequest" name="transferUserContexRequest" /> 
+  </wsdl:message>
+<wsdl:portType name="ContextPort">
+<wsdl:operation name="transferUserContex">
+  <wsdl:input message="tns:transferUserContexRequest" name="transferUserContexRequest" /> 
+  </wsdl:operation>
+  </wsdl:portType>
+<wsdl:binding name="ContextPortSoap11" type="tns:ContextPort">
+  <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" /> 
+<wsdl:operation name="transferUserContex">
+  <soap:operation soapAction="" /> 
+<wsdl:input name="transferUserContexRequest">
+  <soap:body use="literal" /> 
+  </wsdl:input>
+  </wsdl:operation>
+  </wsdl:binding>
+<wsdl:service name="ContextPortService">
+<wsdl:port binding="tns:ContextPortSoap11" name="ContextPortSoap11">
+  <soap:address location="http://k3-vo-core.vtb24.ru:80/ts85/TransferRBSessionContextVO" /> 
+  </wsdl:port>
+  </wsdl:service>
+  </wsdl:definitions>
