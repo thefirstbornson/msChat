@@ -16,14 +16,14 @@ public class UserSessionConf {
 
     @Bean("sessionTable")
     public Map<String, SessionUser> sessionTable(){
-        Map<String, SessionUser> map = new HashMap<>(){{
+        return new HashMap<>(){{
             put("123e4567-e89b-12d3-a456-426655440000", SessionUser.get());
             put("123e4567-e89b-12d3-a456-426655440001", SessionUser.get());
             put("123e4567-e89b-12d3-a456-426655440002", SessionUser.get());
             put("123e4567-e89b-12d3-a456-426655440003", SessionUser.get());
             put("123e4567-e89b-12d3-a456-426655440004", SessionUser.get());
+            put("123e4567-e89b-12d3-a456-426655440005", SessionUser.get());
         }};
-        return map;
     }
 
     @Bean("mapper")

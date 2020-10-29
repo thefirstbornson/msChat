@@ -27,6 +27,7 @@ public class SessionService {
 
     public CompletableFuture<String> getBySession(String session){
         String result = null;
+        log.info(String.format("%s %s", "Trying to find any user with id: ", session));
         try{
             if(table.containsKey(session)) {
                 result = mapper.writeValueAsString(table.get(session));

@@ -41,7 +41,7 @@ public class SessionDataController {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
                 }
             } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
                 return ResponseEntity.badRequest().build();
             }
         }
