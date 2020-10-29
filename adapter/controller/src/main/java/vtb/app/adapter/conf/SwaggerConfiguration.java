@@ -1,4 +1,4 @@
-package vtb.app.adapter.controller;
+package vtb.app.adapter.conf;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
