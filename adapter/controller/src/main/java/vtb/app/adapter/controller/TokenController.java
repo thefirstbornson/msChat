@@ -8,6 +8,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vtb.app.service.TokenService;
 
@@ -21,20 +22,21 @@ public class TokenController {
     private final ObjectMapper objectMapper;
 
     @PostMapping(value ="/api/user/sendchattoken")
-    public ResponseEntity<?> sendToken( @Parameter(hidden = true) @RequestHeader(name="Authorization") String token){
-        String sessionId = getSessionId(token);
+    public ResponseEntity<?> sendToken(@Parameter(hidden = true) @RequestHeader(name="Authorization") String jwt,
+                                       @RequestParam String token ){
+        String sessionId = getSessionId(jwt);
         return ResponseEntity.ok(sessionId);
     }
 
-    private String getSessionId(String token) {
+    private String getSessionId(String jwt) {
         String sessionId;
-        String payload = token.substring(token.indexOf(".")+1, token.lastIndexOf("."));
+        String payload = jwt.substring(jwt.indexOf(".")+1, jwt.lastIndexOf("."));
         String decodedPayload = new String(new Base64().decode(payload.getBytes()));
         try {
             ObjectNode json = objectMapper.readValue(decodedPayload, ObjectNode.class);
             sessionId = json.get(CONTEXT_USER_UUID_JSON_FIELD).toString();
         } catch (NullPointerException | IOException exception){
-            throw new IllegalArgumentException("Invalid token");
+            throw new IllegalArgumentException("Invalid jwt");
         }
         return sessionId;
     }
