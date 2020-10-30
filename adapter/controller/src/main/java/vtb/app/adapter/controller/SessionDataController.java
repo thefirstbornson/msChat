@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vtb.app.adapter.service.SessionService;
 
 import java.util.concurrent.CompletableFuture;
@@ -24,7 +21,7 @@ public class SessionDataController {
     @Autowired
     private SessionService sessionService;
 
-    @PostMapping("/sessionId")
+    @GetMapping("/sessionId")
     public ResponseEntity<?> getContext(@RequestParam("sessionId") String sessionId){
         log.info(String.format("%s %s", "GOT sessionID: ", sessionId));
         CompletableFuture<String> userFromStorage = sessionService.getBySession(sessionId);
