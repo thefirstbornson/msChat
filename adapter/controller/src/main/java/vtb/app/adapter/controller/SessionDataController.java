@@ -21,8 +21,8 @@ public class SessionDataController {
     @Autowired
     private SessionService sessionService;
 
-    @GetMapping("/sessionId")
-    public ResponseEntity<?> getContext(@RequestParam("sessionId") String sessionId){
+    @GetMapping("/{sessionId}")
+    public ResponseEntity<?> getContext(@PathVariable("sessionId") String sessionId){
         log.info(String.format("%s %s", "GOT sessionID: ", sessionId));
         CompletableFuture<String> userFromStorage = sessionService.getBySession(sessionId);
         if(userFromStorage.isCancelled() || userFromStorage.isCompletedExceptionally()){
