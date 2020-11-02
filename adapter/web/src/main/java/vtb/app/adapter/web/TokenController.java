@@ -1,4 +1,4 @@
-package vtb.app.adapter.controller;
+package vtb.app.adapter.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -6,11 +6,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import vtb.app.service.TokenService;
+import org.springframework.web.bind.annotation.*;
+import vtb.app.adapter.web.exception.InvalidJWTException;
+import vtb.app.port.in.TokenService;
 
 import java.io.IOException;
 
@@ -25,6 +23,7 @@ public class TokenController {
     public ResponseEntity<?> sendToken(@Parameter(hidden = true) @RequestHeader(name="Authorization") String jwt,
                                        @RequestParam String token ){
         String sessionId = getSessionId(jwt);
+//        tokenService.getUserData()
         return ResponseEntity.ok(sessionId);
     }
 
@@ -36,8 +35,13 @@ public class TokenController {
             ObjectNode json = objectMapper.readValue(decodedPayload, ObjectNode.class);
             sessionId = json.get(CONTEXT_USER_UUID_JSON_FIELD).toString();
         } catch (NullPointerException | IOException exception){
-            throw new IllegalArgumentException("Invalid jwt");
+            throw new InvalidJWTException("Invalid jwt");
         }
         return sessionId;
+    }
+
+    @GetMapping(value = "api/user/sendchattokken")
+    public ResponseEntity<?> getToken(){
+        return ResponseEntity.ok().build();
     }
 }
