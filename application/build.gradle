@@ -4,15 +4,17 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    implementation project(':service')
     implementation project(':domain')
-    implementation project(':controller')
+    implementation project(':service')
+    implementation project(':port')
+    implementation project(':web')
     implementation project(':soap')
-    implementation ('org.springframework.boot:spring-boot-starter-web')
+    implementation project(':web-repository')
 
 
     implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"
     implementation("com.google.guava:guava:30.0-jre")
+//    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'junit' // excluding junit 4

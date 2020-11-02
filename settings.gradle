@@ -1,10 +1,11 @@
 include ':domain'
 include ':service'
+include ':port'
 include ':soap'
-include ':controller'
-//include ':adapter:consumer:soap'
-//include ':adapter:controller'
+include ':web'
+include ':web-repository'
 include ':application'
 
-project(":controller").projectDir = file("adapter/controller")
+project(":web").projectDir = file("adapter/web")
 project(":soap").projectDir = file("adapter/consumer/soap")
+project(":web-repository").projectDir = file("adapter/persistence/web-repository")

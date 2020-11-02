@@ -1,4 +1,4 @@
-package vtb.app.service;
+package vtb.app.port.in;
 
 import vtb.app.domain.UserData;
 
