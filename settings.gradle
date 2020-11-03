@@ -4,8 +4,10 @@ include ':port'
 include ':soap'
 include ':web'
 include ':web-repository'
+include ':stub-session-service'
 include ':application'
 
 project(":web").projectDir = file("adapter/web")
+project(":stub-session-service").projectDir = file("adapter/stub-session-service")
 project(":soap").projectDir = file("adapter/consumer/soap")
 project(":web-repository").projectDir = file("adapter/persistence/web-repository")

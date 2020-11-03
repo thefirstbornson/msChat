@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import vtb.app.adapter.conf.UserSessionConf;
+import vtb.app.adapter.model.SessionData;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -19,21 +20,18 @@ public class SessionService {
 
     @Autowired
     @Qualifier("sessionTable")
-    private Map<String, UserSessionConf.SessionUser> table;
+    private Map<String, SessionData> table;
 
     @Autowired
     @Qualifier("mapper")
     private ObjectMapper mapper;
 
-    public CompletableFuture<String> getBySession(String session){
-        String result = null;
+    public CompletableFuture<SessionData> getBySession(String session){
+        SessionData result = null;
         log.info(String.format("%s %s", "Trying to find any user with id: ", session));
-        try{
-            if(table.containsKey(session)) {
-                result = mapper.writeValueAsString(table.get(session));
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        if(table.containsKey(session)) {
+            result = table.get(session);
+//                result = mapper.writeValueAsString(table.get(session));
         }
         return CompletableFuture.completedFuture(result);
     }

@@ -10,6 +10,7 @@ dependencies {
     implementation project(':web')
     implementation project(':soap')
     implementation project(':web-repository')
+    implementation project(':stub-session-service')
 
 
     implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"

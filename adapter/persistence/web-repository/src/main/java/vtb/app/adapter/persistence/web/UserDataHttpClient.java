@@ -1,5 +1,7 @@
 package vtb.app.adapter.persistence.web;
 
+import vtb.app.adapter.persistence.web.model.SessionData;
+
 public interface UserDataHttpClient {
-    Object getSessionData(String sessionId);
+    SessionData getSessionData(String sessionId);
 }

@@ -1,5 +1,6 @@
 package vtb.app.adapter.web;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,8 +9,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import vtb.app.domain.UserData;
 import vtb.app.port.in.TokenService;
 
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TokenControllerTest {
     public static final String URL_TEMPLATE = "/api/user/sendchattoken";
     String TOKEN = "b2ac2c29-b203-4a04-9136-c1c65753423d";
-    String EXPECTED_REPLY = "\"123e4567-e89b-12d3-a456-426655440000\"";
+    String EXPECTED_REPLY = "{\"firstName\":\"q\",\"lastName\":\"qq\",\"patronymic\":\"qqq\",\"login\":\"login\",\"bkoId\":\"id123\",\"token\":null,\"client\":null}";
     String JWT = "Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0YW10YW1AdnRiLnJ1IiwiaXNzIjoiaHR0cHM6Ly9wY" +
             "XNzcG9ydC52dGIucnUvcGFzc3BvcnQiLCJleHAiOiIxNTk2NjQ3Njg5IiwiaWF0IjoiMTU5NjY0NzE5MCIsImp0aSI6IjVlMzRnaDU" +
             "2Nzg5MHR5NzhubWtsNyIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwidHJ1c3QiOiJmYWxzZSIsIm5vbmNlIjoiNTQ2NDY0Z" +
@@ -33,15 +37,29 @@ class TokenControllerTest {
             "N0b3IiOlsib3RwIiwic21zIiwiYmlvIl19.v8Kkt0FySQMWi-ZfaLXalfer8MZpXRPQZGpAnlASxHk";
     String JWT_WITH_INVALID_PAYLOAD = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.QVNERkFTREZBRFNGYXNmc2FkZmFzZGYz" +
             "NTQzMTUzMjQyMTQ=.v8Kkt0FySQMWi-ZfaLXalfer8MZpXRPQZGpAnlASxHk";
+    private UserData userData;
 
     @Autowired
     private MockMvc mockMvc;
+
     @MockBean
     private TokenService tokenService;
+
+    @BeforeEach
+    void setUp(){
+        userData = UserData.builder()
+                .firstName("q")
+                .lastName("qq")
+                .patronymic("qqq")
+                .login("login")
+                .bkoId("id123")
+                .build();
+    }
 
     @Test
     @DisplayName("Возврат значения id сессия по jwt")
     void sendToken() throws Exception {
+        given(tokenService.getUserData(anyString())).willReturn(userData);
         mockMvc.perform(post(URL_TEMPLATE)
                 .param("token", TOKEN)
                 .header("Authorization", JWT))
@@ -83,20 +101,4 @@ class TokenControllerTest {
                 .header("Authorization", JWT_WITH_INVALID_PAYLOAD))
                 .andExpect(status().is5xxServerError());
     }
-
-//    @Test
-//    @DisplayName("Выбрасывается исключение при отсутсвии в payload jwt поля ctxi")
-//    void sendTokenThrowsExceptionWithouCtxi() {
-//        ObjectMapper objectMapper = Mockito.mock(ObjectMapper.class);
-//        assertThrows(IllegalArgumentException.class, () -> new TokenController(tokenService, objectMapper)
-//                .sendToken(JWT_WITHOUT_CTXI, TOKEN));
-//    }
-//
-//    @Test
-//    @DisplayName("Выбрасывается исключение при некорректном формате payload (не json)")
-//    void sendTokenExpectedInvalidJWT() {
-//        ObjectMapper objectMapper = Mockito.mock(ObjectMapper.class);
-//        assertThrows(IllegalArgumentException.class, () -> new TokenController(tokenService, objectMapper)
-//                .sendToken(JWT_WITH_INVALID_PAYLOAD, TOKEN));
-//    }
 }

@@ -8,6 +8,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vtb.app.adapter.web.exception.InvalidJWTException;
+import vtb.app.domain.UserData;
 import vtb.app.port.in.TokenService;
 
 import java.io.IOException;
@@ -23,8 +24,8 @@ public class TokenController {
     public ResponseEntity<?> sendToken(@Parameter(hidden = true) @RequestHeader(name="Authorization") String jwt,
                                        @RequestParam String token ){
         String sessionId = getSessionId(jwt);
-//        tokenService.getUserData()
-        return ResponseEntity.ok(sessionId);
+        UserData userData = tokenService.getUserData(sessionId); //заменить на processToken
+        return ResponseEntity.ok(userData); // убрать тело
     }
 
     private String getSessionId(String jwt) {
@@ -33,15 +34,10 @@ public class TokenController {
         String decodedPayload = new String(new Base64().decode(payload.getBytes()));
         try {
             ObjectNode json = objectMapper.readValue(decodedPayload, ObjectNode.class);
-            sessionId = json.get(CONTEXT_USER_UUID_JSON_FIELD).toString();
+            sessionId = json.get(CONTEXT_USER_UUID_JSON_FIELD).asText();
         } catch (NullPointerException | IOException exception){
             throw new InvalidJWTException("Invalid jwt");
         }
         return sessionId;
-    }
-
-    @GetMapping(value = "api/user/sendchattokken")
-    public ResponseEntity<?> getToken(){
-        return ResponseEntity.ok().build();
     }
 }
