@@ -1,6 +1,5 @@
 package vtb.app.adapter.web;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +10,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import vtb.app.domain.UserData;
 import vtb.app.port.in.TokenService;
+
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -37,24 +38,21 @@ class TokenControllerTest {
             "N0b3IiOlsib3RwIiwic21zIiwiYmlvIl19.v8Kkt0FySQMWi-ZfaLXalfer8MZpXRPQZGpAnlASxHk";
     String JWT_WITH_INVALID_PAYLOAD = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.QVNERkFTREZBRFNGYXNmc2FkZmFzZGYz" +
             "NTQzMTUzMjQyMTQ=.v8Kkt0FySQMWi-ZfaLXalfer8MZpXRPQZGpAnlASxHk";
-    private UserData userData;
+    private static final UserData userData = UserData.builder()
+            .firstName("John")
+            .lastName("Simpson")
+            .patronymic("Silver")
+            .login("GY56Jdn")
+            .bkoId("1984130510")
+            .client(List.of(UserData.Client.builder().bkoId("2924130510").inn("12342342342341").build(),
+                    UserData.Client.builder().bkoId("23224130510").inn("123442342342341").build()))
+            .build();
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private TokenService tokenService;
-
-    @BeforeEach
-    void setUp(){
-        userData = UserData.builder()
-                .firstName("q")
-                .lastName("qq")
-                .patronymic("qqq")
-                .login("login")
-                .bkoId("id123")
-                .build();
-    }
 
     @Test
     @DisplayName("Возврат значения id сессия по jwt")
