@@ -1,6 +1,5 @@
 include ':domain'
 include ':service'
-include ':port'
 include ':soap'
 include ':web'
 include ':web-repository'

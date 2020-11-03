@@ -1,8 +1,11 @@
 package vtb.app.adapter.persistence.web.model;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@RequiredArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Phone {
     String phoneType;
     String fullPhoneNumber;

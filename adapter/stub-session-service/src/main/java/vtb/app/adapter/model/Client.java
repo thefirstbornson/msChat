@@ -1,67 +1,71 @@
 package vtb.app.adapter.model;
 
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 public class Client {
-    String mdmOCH;
-    boolean isolated;
-    UserAuthority userAuthority;
-    OrgInfo orgInfo;
-    ServicePermissions servicePermissions;
-    List<Phone> phones;
-    List<Email> emails;
-    List<Address> addresses;
-    List<CrossReference> crossReferences;
+    private String mdmOCH;
+    private boolean isolated;
+    private UserAuthority userAuthority;
+    private OrgInfo orgInfo;
+    private ServicePermissions servicePermissions;
+    private List<Phone> phones;
+    private List<Email> emails;
+    private List<Address> addresses;
+    private List<CrossReference> crossReferences;
+
+    public String getOrgInn(){
+        return orgInfo.getInn();
+    }
 
     @Data
     private static class UserAuthority {
-        boolean eio;
-        int signaturePos;
-        String signMethod;
-        LocalDateTime signatureExpired;
-        boolean allowRead;
-        boolean allowCreate;
-        boolean allowEdit;
-        boolean allowDelete;
-        boolean allowSubmit;
-        boolean allowRevoke;
+        private boolean eio;
+        private int signaturePos;
+        private String signMethod;
+        private LocalDateTime signatureExpired;
+        private boolean allowRead;
+        private boolean allowCreate;
+        private boolean allowEdit;
+        private boolean allowDelete;
+        private boolean allowSubmit;
+        private boolean allowRevoke;
     }
 
     @Data
     private static class OrgInfo {
-        String kpp;
-        String kio;
-        String inn;
-        String ogrn;
-        String okpo;
-        String bik;
-        String swift;
-        String officialName;
-        String orgType;
-        String okopf;
-        String taxSystem;
+        private String kpp;
+        private String kio;
+        private String inn;
+        private String ogrn;
+        private String okpo;
+        private String bik;
+        private String swift;
+        private String officialName;
+        private String orgType;
+        private String okopf;
+        private String taxSystem;
     }
 
     @Data
     private static class ServicePermissions {
-        boolean ibSalaryCards;
-        boolean ibSalaryRegister;
+        private boolean ibSalaryCards;
+        private boolean ibSalaryRegister;
     }
 
     @Data
     private static class Address {
-        String addressType;
-        String address;
+        private String addressType;
+        private String address;
     }
 
     @Data
     private static class CrossReference {
-        String system;
-        String externalId;
-        String expiredAt;
+        private String system;
+        private String externalId;
+        private String expiredAt;
     }
 }

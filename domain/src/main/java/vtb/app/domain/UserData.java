@@ -1,25 +1,28 @@
 package vtb.app.domain;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@ToString
+@EqualsAndHashCode
 @Builder
 public class UserData {
-    private String firstName;
-    private String lastName;
-    private String patronymic;
-    private String login;
-    private String bkoId;
-    private String token;
-    private List<Client> client;
+    private final String firstName;
+    private final String lastName;
+    private final String patronymic;
+    private final String login;
+    private final String bkoId;
+    private final String token;
+    private final List<Client> client;
 
-    @Data
+    @Getter
+    @ToString
+    @EqualsAndHashCode
+    @Builder
     public static class Client {
-        private String inn;
-        private String bkoId;
+        private final String inn;
+        private final String bkoId;
     }
-
 }

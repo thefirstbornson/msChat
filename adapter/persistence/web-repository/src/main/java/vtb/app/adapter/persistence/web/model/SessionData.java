@@ -1,11 +1,14 @@
 package vtb.app.adapter.persistence.web.model;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@RequiredArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class SessionData {
-    User user;
-    List<Client> userClients;
+    private User user;
+    private List<Client> userClients;
 }

@@ -1,5 +1,6 @@
-package vtb.app.adapter.persistence.web;
+package vtb.app.adapter.persistence.web.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -8,7 +9,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class WebClientConfiguration {
-    private static final String BASE_URL = "http://localhost:8080/api/session/";
+    @Value("${application.session-data-service-url}")
+    private String BASE_URL;
     public static final int TIMEOUT = 1000;
 
     @Bean

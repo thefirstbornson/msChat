@@ -9,6 +9,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 //    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+
     implementation ('org.springframework.boot:spring-boot-starter-web-services') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }

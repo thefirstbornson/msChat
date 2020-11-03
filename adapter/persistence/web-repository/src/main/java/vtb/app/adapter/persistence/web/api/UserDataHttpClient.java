@@ -1,4 +1,4 @@
-package vtb.app.adapter.persistence.web;
+package vtb.app.adapter.persistence.web.api;
 
 import vtb.app.adapter.persistence.web.model.SessionData;
 

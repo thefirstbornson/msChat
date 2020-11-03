@@ -6,7 +6,6 @@ dependencies {
 
     implementation project(':domain')
     implementation project(':service')
-    implementation project(':port')
     implementation project(':web')
     implementation project(':soap')
     implementation project(':web-repository')
