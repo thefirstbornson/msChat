@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import vtb.app.exception.UserDataNotFoundException;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -18,12 +19,19 @@ import java.util.Map;
 */
 @RestControllerAdvice
 public class RestResponseExceptionHandler {
+    private final Logger log = LoggerFactory.getLogger(RestResponseExceptionHandler.class);
 
-    private final Logger log = LoggerFactory.getLogger(getClass().getTypeName());
     @ExceptionHandler(value = {InvalidJWTException.class})
     protected ResponseEntity<Object> handleInvalidJWTException(Exception ex, WebRequest request) {
         return new ResponseEntity<>(getBody(HttpStatus.INTERNAL_SERVER_ERROR, ex,
-                "Can not find entity"), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+                ex.getMessage()), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+    @ExceptionHandler(value = {UserDataNotFoundException.class})
+    protected ResponseEntity<Object> handleUserDataNotFoundException(Exception ex, WebRequest request) {
+        return new ResponseEntity<>(getBody(HttpStatus.NOT_FOUND, ex,
+                ex.getMessage()), new HttpHeaders(), HttpStatus.NOT_FOUND);
 
     }
 

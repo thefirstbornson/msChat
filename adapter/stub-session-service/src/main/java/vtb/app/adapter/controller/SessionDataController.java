@@ -26,6 +26,9 @@ public class SessionDataController {
     @GetMapping(value = "/{sessionId}")
     public ResponseEntity<SessionData> getContext(@PathVariable("sessionId") String sessionId){
         log.info(String.format("%s %s", "GOT sessionID: ", sessionId));
+        if (sessionId.equals("500")){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
         CompletableFuture<SessionData> userFromStorage = sessionService.getBySession(sessionId);
         if(userFromStorage.isCancelled() || userFromStorage.isCompletedExceptionally()){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
