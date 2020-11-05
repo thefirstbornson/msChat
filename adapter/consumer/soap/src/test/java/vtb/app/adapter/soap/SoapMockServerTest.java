@@ -38,7 +38,6 @@ public class SoapMockServerTest {
     @Autowired
     WebServiceConfiguration config;
 
-
     UserDataConsumer dataConsumer;
 
     @MockBean
@@ -72,7 +71,6 @@ public class SoapMockServerTest {
         dataConsumer = new UserDataConsumerAdapter( config.createWebServiceTemplate( mockUri ));
     }
 
-
     @SneakyThrows
     void setupStub( String stubFile ){
         String responseData  = "";
@@ -89,14 +87,8 @@ public class SoapMockServerTest {
         );
     }
 
-
     @Test
     public void testFirst( ){
-        UserData userData = UserData.builder()
-                .firstName("John")
-                .patronymic("V")
-                .lastName("Silver")
-                .build();
         dataConsumer.sendUserData(userData);
     }
 }
