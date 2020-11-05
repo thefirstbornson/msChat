@@ -31,7 +31,6 @@ public class SessionService {
         log.info(String.format("%s %s", "Trying to find any user with id: ", session));
         if(table.containsKey(session)) {
             result = table.get(session);
-//                result = mapper.writeValueAsString(table.get(session));
         }
         return CompletableFuture.completedFuture(result);
     }

@@ -2,6 +2,7 @@ package vtb.app.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import vtb.app.exception.UserDataNotFoundException;
 import vtb.app.port.in.TokenService;
 import vtb.app.port.out.UserDataConsumer;
 import vtb.app.domain.UserData;
@@ -22,7 +23,8 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public UserData getUserData(String sessionId){
-        return userDataRepository.findBySessionId(sessionId).orElseThrow();// кастомный эксепшн
+        return userDataRepository.findBySessionId(sessionId)
+                .orElseThrow(()->new UserDataNotFoundException(String.format("UserData not found by sessionId: %s",sessionId)));
     }
 
     @Override
