@@ -9,7 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import vtb.app.domain.UserData;
-import vtb.app.port.in.TokenService;
+import vtb.app.port.in.UserDataService;
 
 import java.util.List;
 
@@ -52,12 +52,12 @@ class TokenControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private TokenService tokenService;
+    private UserDataService userDataService;
 
     @Test
     @DisplayName("Возврат значения id сессия по jwt")
     void sendToken() throws Exception {
-        given(tokenService.getUserData(anyString())).willReturn(userData);
+        given(userDataService.getUserData(anyString())).willReturn(userData);
         mockMvc.perform(post(URL_TEMPLATE)
                 .param("token", TOKEN)
                 .header("Authorization", JWT))

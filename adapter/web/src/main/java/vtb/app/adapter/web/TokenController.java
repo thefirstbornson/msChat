@@ -8,8 +8,10 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vtb.app.adapter.web.exception.InvalidJWTException;
+import vtb.app.domain.Security;
+import vtb.app.domain.JwtToken;
 import vtb.app.domain.UserData;
-import vtb.app.port.in.TokenService;
+import vtb.app.port.in.UserDataService;
 
 import java.io.IOException;
 
@@ -17,14 +19,16 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class TokenController {
     public static final String CONTEXT_USER_UUID_JSON_FIELD = "ctxi";
-    private final TokenService tokenService;
+    private final UserDataService userDataService;
     private final ObjectMapper objectMapper;
 
     @PostMapping(value ="/api/user/sendchattoken")
     public ResponseEntity<?> sendToken(@Parameter(hidden = true) @RequestHeader(name="Authorization") String jwt,
                                        @RequestParam String token ){
         String sessionId = getSessionId(jwt);
-        UserData userData = tokenService.getUserData(sessionId); //заменить на processToken
+        Security security = JwtToken.builder().token(jwt).build();
+        UserData userData = userDataService.getUserData(sessionId, security); //заменить на processToken
+        userData = userData.toBuilder().token(token).build();
         return ResponseEntity.ok(userData); // убрать тело
     }
 

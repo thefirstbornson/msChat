@@ -27,17 +27,17 @@ public class UserDataConsumerAdapter implements UserDataConsumer {
     private TransferUserContexRequest createRequestFromUserData(UserData userData) {
         ObjectFactory objectFactory = new ObjectFactory();
         TransferUserContexRequest req = objectFactory.createTransferUserContexRequest();
-        TransferUserContexRequest.UserName un = objectFactory.createTransferUserContexRequestUserName();
-        un.setFirstName( userData.getFirstName());
-        un.setLastName( userData.getLastName());
-        un.setPatronymic( userData.getPatronymic() );
-        req.setUserName( un );
-        TransferUserContexRequest.UserContext uc = objectFactory.createTransferUserContexRequestUserContext();
-        // fill uc data
-        uc.setVOToken( userData.getToken() );
-        uc.setBKOId( userData.getBkoId() );
-        uc.setVtb24BOLogin( userData.getLogin() );
-        req.setUserContext( uc  );
+        TransferUserContexRequest.UserName userName = objectFactory.createTransferUserContexRequestUserName();
+        userName.setFirstName( userData.getFirstName());
+        userName.setLastName( userData.getLastName());
+        userName.setPatronymic( userData.getPatronymic() );
+        req.setUserName( userName );
+        TransferUserContexRequest.UserContext userContext = objectFactory.createTransferUserContexRequestUserContext();
+        // fill userContext data
+        userContext.setVOToken( userData.getToken() );
+        userContext.setBKOId( userData.getBkoId() );
+        userContext.setVtb24BOLogin( userData.getLogin() );
+        req.setUserContext( userContext  );
         return req;
     }
 }

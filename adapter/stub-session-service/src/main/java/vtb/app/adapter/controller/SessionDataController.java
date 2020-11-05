@@ -1,5 +1,6 @@
 package vtb.app.adapter.controller;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ public class SessionDataController {
     private SessionService sessionService;
 
     @GetMapping(value = "/{sessionId}")
-    public ResponseEntity<SessionData> getContext(@PathVariable("sessionId") String sessionId){
+    public ResponseEntity<SessionData> getContext( @Parameter(hidden = true) @RequestHeader(name="Authorization") String jwt,
+                                                   @PathVariable("sessionId") String sessionId){
         log.info(String.format("%s %s", "GOT sessionID: ", sessionId));
         if (sessionId.equals("500")){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
