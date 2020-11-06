@@ -4,11 +4,11 @@ include ':web-consumer'
 include ':web'
 include ':web-repository'
 include ':stub-session-service'
-include ':stub-web-consumer'
+include ':stub-virt-dep'
 include ':application'
 
 project(":web").projectDir = file("adapter/web")
-project(":stub-session-service").projectDir = file("adapter/stub-session-service")
 project(":web-consumer").projectDir = file("adapter/consumer/web-consumer")
-project(":stub-web-consumer").projectDir = file("adapter/stub-web-consumer")
 project(":web-repository").projectDir = file("adapter/persistence/web-repository")
+project(":stub-session-service").projectDir = file("adapter/stub-session-service")
+project(":stub-virt-dep").projectDir = file("adapter/stub-virt-dep")

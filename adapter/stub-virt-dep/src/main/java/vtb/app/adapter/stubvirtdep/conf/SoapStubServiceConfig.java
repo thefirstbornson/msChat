@@ -1,4 +1,4 @@
-package vtb.app.adapter.soapstub.conf;
+package vtb.app.adapter.stubvirtdep.conf;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.MappingBuilder;

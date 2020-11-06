@@ -8,8 +8,8 @@ dependencies {
     implementation project(':service')
     implementation project(':web')
     implementation project(':web-consumer')
-    implementation project(':stub-web-consumer')
     implementation project(':web-repository')
+    implementation project(':stub-virt-dep')
     implementation project(':stub-session-service')
 
 

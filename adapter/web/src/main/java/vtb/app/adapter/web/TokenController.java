@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vtb.app.adapter.web.exception.InvalidJWTException;
 import vtb.app.domain.JwtToken;
+import vtb.app.domain.Security;
 import vtb.app.domain.UserData;
 import vtb.app.port.in.UserDataService;
 
@@ -25,9 +26,11 @@ public class TokenController {
     public ResponseEntity<?> sendToken(@Parameter(hidden = true) @RequestHeader(name="Authorization") String jwt,
                                        @RequestParam String token ){
         String sessionId = getSessionId(jwt);
-        UserData userData = tokenService.getUserData(sessionId, JwtToken.builder().token( token ).build()); //заменить на processToken
-        tokenService.sendUserData( userData );
-        return ResponseEntity.ok(userData); // убрать тело
+        Security security = JwtToken.builder().token(jwt).build();
+        UserData userData = tokenService.getUserData(sessionId, security);
+        userData = userData.toBuilder().token(token).build();
+        tokenService.sendUserData(userData);
+        return ResponseEntity.ok(userData);
     }
 
     private String getSessionId(String jwt) {
