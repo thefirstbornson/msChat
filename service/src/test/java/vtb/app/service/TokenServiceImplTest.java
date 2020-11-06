@@ -11,6 +11,7 @@ import vtb.app.domain.UserData;
 import vtb.app.port.out.UserDataConsumer;
 import vtb.app.port.out.UserDataRepository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;

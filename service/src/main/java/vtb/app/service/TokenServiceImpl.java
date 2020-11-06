@@ -28,7 +28,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public void sendUserData(UserData userData) {
         userDataConsumer.sendUserData(userData);
-        System.out.println("Userdata send.");
+        System.out.println("Userdata was sent to soap service.");
     }
 
 

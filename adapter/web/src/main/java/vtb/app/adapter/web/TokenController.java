@@ -25,6 +25,7 @@ public class TokenController {
                                        @RequestParam String token ){
         String sessionId = getSessionId(jwt);
         UserData userData = tokenService.getUserData(sessionId); //заменить на processToken
+        tokenService.sendUserData( userData );
         return ResponseEntity.ok(userData); // убрать тело
     }
 

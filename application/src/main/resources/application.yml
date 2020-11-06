@@ -1,5 +1,14 @@
 logging:
   level:
     web: TRACE
+    vtb:
+      app: TRACE
+
 application:
   session-data-service-url: http://localhost:8080/api/session
+  vo:
+    ws:
+      uri: http://localhost:4545/ws
+      stub:
+        enabled: true
+        port: 4545

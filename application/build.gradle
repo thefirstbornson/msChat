@@ -10,6 +10,7 @@ dependencies {
     implementation project(':soap')
     implementation project(':web-repository')
     implementation project(':stub-session-service')
+    implementation project(':stub-soap-service')
 
 
     implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"
@@ -33,3 +34,9 @@ test {
     systemProperty 'de.adesso.junitinsights.enabled', 'true'
 }
 
+
+bootRun {
+    if( project.hasProperty("args") ) {
+        args project.args.split(',')
+    }
+}

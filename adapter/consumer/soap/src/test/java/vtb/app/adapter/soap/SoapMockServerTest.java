@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.ws.soap.client.SoapFaultClientException;
 import ru.lanwen.wiremock.ext.WiremockResolver;
 import ru.lanwen.wiremock.ext.WiremockUriResolver;
 import vtb.app.TestApplication;
@@ -20,10 +21,11 @@ import vtb.app.port.out.UserDataConsumer;
 import vtb.app.port.out.UserDataRepository;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.matching;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static  org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith({
@@ -40,6 +42,7 @@ public class SoapMockServerTest {
 
 
     UserDataConsumer dataConsumer;
+    UserDataConsumer faultDataConsumer;
 
     @MockBean
     UserDataRepository userDataRepositroy;
@@ -63,26 +66,29 @@ public class SoapMockServerTest {
         System.out.println("using uri: " + uri);
         mockUri = uri;
         wireMockServer = server;
-        setupStub( "emptyResponse.xml" );
+        setupStub( "/","transferUserContex",200, "emptyResponse.xml" );
+        setupStub( "/fault","transferUserContex",500, "faultResponse.xml" );
         wireMockServer.start();
         setupMocks();
     }
 
     private void setupMocks(){
         dataConsumer = new UserDataConsumerAdapter( config.createWebServiceTemplate( mockUri ));
+        faultDataConsumer = new UserDataConsumerAdapter( config.createWebServiceTemplate( mockUri + "/fault"));
     }
 
 
     @SneakyThrows
-    void setupStub( String stubFile ){
+    void setupStub( String uri,String soapAction, int httpStatus, String stubFile ){
         String responseData  = "";
         if( stubFile != null )
             responseData = IOUtils.toString( getClass().getResourceAsStream( "/__files/" + stubFile ), StandardCharsets.UTF_8);
         wireMockServer.stubFor(WireMock
-                .post( "/")
+                .post( uri)
+                .withHeader( "SOAPAction", containing( soapAction) )
                 .withRequestBody( matching( ".*") )
                 .willReturn( aResponse()
-                        .withStatus(200)
+                        .withStatus(httpStatus )
                         .withBody( responseData )
                         .withHeader( "Content-Type", "text/xml; charset=utf-8")
                 )
@@ -92,11 +98,11 @@ public class SoapMockServerTest {
 
     @Test
     public void testFirst( ){
-        UserData userData = UserData.builder()
-                .firstName("John")
-                .patronymic("V")
-                .lastName("Silver")
-                .build();
         dataConsumer.sendUserData(userData);
+        SoapFaultClientException e = assertThrows(SoapFaultClientException.class,() -> {
+            faultDataConsumer.sendUserData(userData);
+        });
+        assertEquals( "Bad token data", e.getMessage());
+        assertEquals( "ClientContext", e.getFaultCode().getLocalPart());
     }
 }

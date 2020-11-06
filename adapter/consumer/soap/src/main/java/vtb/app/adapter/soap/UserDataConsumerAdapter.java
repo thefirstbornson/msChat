@@ -1,7 +1,9 @@
 package vtb.app.adapter.soap;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.ws.client.core.WebServiceTemplate;
+import org.springframework.ws.soap.SoapMessage;
 import vtb.app.adapter.soap.wsdl.ObjectFactory;
 import vtb.app.adapter.soap.wsdl.TransferUserContexRequest;
 import vtb.app.domain.UserData;
@@ -16,11 +18,19 @@ public class UserDataConsumerAdapter implements UserDataConsumer {
         this.webServiceTemplate = webServiceTemplate;
     }
 
+    static final String EMPTY_OPERATION = "\"\"";
+
+    private boolean isEmptyOperationName( String opName ) {
+        return StringUtils.isEmpty( opName ) || EMPTY_OPERATION.equals( opName );
+    }
     @Override
     public void sendUserData(UserData userData) {
         createRequestFromUserData( userData );
         TransferUserContexRequest transReq = createRequestFromUserData( userData );
-        webServiceTemplate.marshalSendAndReceive( transReq );
+        webServiceTemplate.marshalSendAndReceive( transReq, message -> {
+            if( isEmptyOperationName( ((SoapMessage) message).getSoapAction() ) )
+                ((SoapMessage) message).setSoapAction( "transferUserContex");
+        } );
 
     }
 
