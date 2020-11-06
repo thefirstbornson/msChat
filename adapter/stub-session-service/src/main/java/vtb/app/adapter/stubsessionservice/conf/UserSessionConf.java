@@ -1,10 +1,10 @@
-package vtb.app.adapter.conf;
+package vtb.app.adapter.stubsessionservice.conf;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import vtb.app.adapter.model.SessionData;
-import vtb.app.adapter.model.User;
+import vtb.app.adapter.stubsessionservice.model.SessionData;
+import vtb.app.adapter.stubsessionservice.model.User;
 
 import java.util.*;
 

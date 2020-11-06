@@ -1,4 +1,4 @@
-package vtb.app.adapter.soap;
+package vtb.app.adapter.consumer.web;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.WebServiceTemplate;

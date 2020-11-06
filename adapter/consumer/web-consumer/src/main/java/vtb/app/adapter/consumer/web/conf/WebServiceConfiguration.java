@@ -1,4 +1,4 @@
-package vtb.app.adapter.conf;
+package vtb.app.adapter.consumer.web.conf;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;

@@ -62,7 +62,7 @@ public class UserDataWebRepositoryTest {
         SessionData sessionData = objectMapper.readValue(SESSION_DATA_JSON, SessionData.class);
         given(httpClient.getSessionData(VALID_SESSION_ID,jwtToken.getToken())).willReturn(sessionData);
         given(mapper.mapFrom(sessionData)).willReturn(userData);
-        Optional<UserData> expectedUserDataOptional = userDataWebRepository.findBySessionId(VALID_SESSION_ID,jwtToken);
+        Optional<UserData> expectedUserDataOptional = userDataWebRepository.findById(VALID_SESSION_ID,jwtToken);
         Assertions.assertTrue(expectedUserDataOptional.isPresent());
         Assertions.assertEquals(sessionData.getUser().getFirstName(), userData.getFirstName());
         Assertions.assertEquals(sessionData.getUser().getLastName(), userData.getLastName());
@@ -74,14 +74,14 @@ public class UserDataWebRepositoryTest {
     @Test
     void findBySessionIdThrowsSessionDataNotFoundException(){
         given(httpClient.getSessionData(VALID_SESSION_ID,jwtToken.getToken())).willThrow(SessionDataNotFoundException.class);
-        Optional<UserData> expectedUserDataOptional = userDataWebRepository.findBySessionId(VALID_SESSION_ID,jwtToken);
+        Optional<UserData> expectedUserDataOptional = userDataWebRepository.findById(VALID_SESSION_ID,jwtToken);
         Assertions.assertTrue(expectedUserDataOptional.isEmpty());
     }
 
     @Test
     void findBySessionIdThrowsSessionDataServerException(){
         given(httpClient.getSessionData(VALID_SESSION_ID,jwtToken.getToken())).willThrow(SessionDataServerException.class);
-        Optional<UserData> expectedUserDataOptional = userDataWebRepository.findBySessionId(VALID_SESSION_ID,jwtToken);
+        Optional<UserData> expectedUserDataOptional = userDataWebRepository.findById(VALID_SESSION_ID,jwtToken);
         Assertions.assertTrue(expectedUserDataOptional.isEmpty());
     }
 }

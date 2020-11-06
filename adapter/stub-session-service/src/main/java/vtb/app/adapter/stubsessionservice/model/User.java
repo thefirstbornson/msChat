@@ -1,4 +1,4 @@
-package vtb.app.adapter.model;
+package vtb.app.adapter.stubsessionservice.model;
 
 import lombok.*;
 

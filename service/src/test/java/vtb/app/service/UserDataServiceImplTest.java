@@ -9,7 +9,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import vtb.app.domain.JwtToken;
 import vtb.app.domain.UserData;
-import vtb.app.exception.UserDataNotFoundException;
+import vtb.app.service.exception.UserDataNotFoundException;
 import vtb.app.port.out.UserDataConsumer;
 import vtb.app.port.out.UserDataRepository;
 
@@ -51,15 +51,15 @@ class UserDataServiceImplTest {
 
     @Test
     void getUserData() {
-        given(userDataRepository.findBySessionId(VALID_SESSION_ID, jwtToken)).willReturn(Optional.ofNullable(userData));
+        given(userDataRepository.findById(VALID_SESSION_ID, jwtToken)).willReturn(Optional.ofNullable(userData));
         UserData expectedUserData = tokenService.getUserData(VALID_SESSION_ID, jwtToken);
         Assertions.assertEquals(userData, expectedUserData);
-        verify(userDataRepository, times(1)).findBySessionId(VALID_SESSION_ID, jwtToken);
+        verify(userDataRepository, times(1)).findById(VALID_SESSION_ID, jwtToken);
     }
 
     @Test
     void getUserDataFailed() {
-        given(userDataRepository.findBySessionId(VALID_SESSION_ID, jwtToken)).willReturn(Optional.empty());
+        given(userDataRepository.findById(VALID_SESSION_ID, jwtToken)).willReturn(Optional.empty());
         Assertions.assertThrows(UserDataNotFoundException.class, () -> tokenService.getUserData(VALID_SESSION_ID, jwtToken));
     }
 }
