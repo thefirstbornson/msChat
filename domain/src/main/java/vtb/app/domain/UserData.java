@@ -7,7 +7,7 @@ import java.util.List;
 @Getter
 @ToString
 @EqualsAndHashCode
-@Builder
+@Builder(toBuilder = true)
 public class UserData {
     private final String firstName;
     private final String lastName;

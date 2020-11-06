@@ -6,13 +6,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.stereotype.Service;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import vtb.app.domain.JwtToken;
 import vtb.app.domain.UserData;
-import vtb.app.port.in.TokenService;
+import vtb.app.port.in.UserDataService;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -24,7 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TokenControllerTest {
     public static final String URL_TEMPLATE = "/api/user/sendchattoken";
     String TOKEN = "b2ac2c29-b203-4a04-9136-c1c65753423d";
-    String EXPECTED_REPLY = "{\"firstName\":\"q\",\"lastName\":\"qq\",\"patronymic\":\"qqq\",\"login\":\"login\",\"bkoId\":\"id123\",\"token\":null,\"client\":null}";
+    String EXPECTED_REPLY = "{\"firstName\":\"John\",\"lastName\":\"Simpson\",\"patronymic\":\"Silver\",\"login\":\"GY56Jdn\"," +
+            "\"bkoId\":\"1984130510\",\"token\":\"b2ac2c29-b203-4a04-9136-c1c65753423d\",\"client\":[{\"inn\":\"12342342342341\"," +
+            "\"bkoId\":\"2924130510\"},{\"inn\":\"123442342342341\",\"bkoId\":\"23224130510\"}]}";
     String JWT = "Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0YW10YW1AdnRiLnJ1IiwiaXNzIjoiaHR0cHM6Ly9wY" +
             "XNzcG9ydC52dGIucnUvcGFzc3BvcnQiLCJleHAiOiIxNTk2NjQ3Njg5IiwiaWF0IjoiMTU5NjY0NzE5MCIsImp0aSI6IjVlMzRnaDU" +
             "2Nzg5MHR5NzhubWtsNyIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiXSwidHJ1c3QiOiJmYWxzZSIsIm5vbmNlIjoiNTQ2NDY0Z" +
@@ -52,12 +57,12 @@ class TokenControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private TokenService tokenService;
+    private UserDataService userDataService;
 
     @Test
     @DisplayName("Возврат значения id сессия по jwt")
     void sendToken() throws Exception {
-        given(tokenService.getUserData(anyString())).willReturn(userData);
+        given(userDataService.getUserData(anyString(),any(JwtToken.class))).willReturn(userData);
         mockMvc.perform(post(URL_TEMPLATE)
                 .param("token", TOKEN)
                 .header("Authorization", JWT))

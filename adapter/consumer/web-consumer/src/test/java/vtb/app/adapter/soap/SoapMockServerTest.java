@@ -40,7 +40,6 @@ public class SoapMockServerTest {
     @Autowired
     WebServiceConfiguration config;
 
-
     UserDataConsumer dataConsumer;
     UserDataConsumer faultDataConsumer;
 
@@ -77,7 +76,6 @@ public class SoapMockServerTest {
         faultDataConsumer = new UserDataConsumerAdapter( config.createWebServiceTemplate( mockUri + "/fault"));
     }
 
-
     @SneakyThrows
     void setupStub( String uri,String soapAction, int httpStatus, String stubFile ){
         String responseData  = "";
@@ -94,7 +92,6 @@ public class SoapMockServerTest {
                 )
         );
     }
-
 
     @Test
     public void testFirst( ){
