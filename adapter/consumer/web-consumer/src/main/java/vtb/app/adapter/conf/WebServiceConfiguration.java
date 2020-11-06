@@ -14,7 +14,7 @@ import javax.xml.bind.JAXBException;
 public class WebServiceConfiguration {
 
     @Bean(name="webServiceTemplate")
-    public WebServiceTemplate webServiceTemplate(@Value( "${application.vo.ws.uri:http://localhost:8080/ws}") String wsUri ) {
+    public WebServiceTemplate webServiceTemplate(@Value( "${application.virtdep.ws.uri:http://localhost:8080/ws}") String wsUri ) {
         return createWebServiceTemplate( wsUri );
     }
 

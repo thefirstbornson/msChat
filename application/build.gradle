@@ -8,9 +8,9 @@ dependencies {
     implementation project(':service')
     implementation project(':web')
     implementation project(':web-consumer')
+    implementation project(':stub-web-consumer')
     implementation project(':web-repository')
     implementation project(':stub-session-service')
-    implementation project(':stub-soap-service')
 
 
     implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"

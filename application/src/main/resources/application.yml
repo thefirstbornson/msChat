@@ -6,9 +6,9 @@ logging:
 
 application:
   session-data-service-url: http://localhost:8080/api/session
-  vo:
+  virtdep:
     ws:
-      uri: http://localhost:4545/ws
+      uri: http://localhost:8080/ws
       stub:
         enabled: true
         port: 4545
