@@ -19,12 +19,6 @@ public class UserDataServiceImpl implements UserDataService {
     private final UserDataRepository userDataRepository;
 
     @Override
-    public void processToken(String token){
-        UserData userData = getUserData(token);
-        userData.toBuilder().token(token);
-    }
-
-    @Override
     public UserData getUserData(String id){
         throw  new UnsupportedOperationException();
     }
@@ -38,7 +32,7 @@ public class UserDataServiceImpl implements UserDataService {
     @Override
     public void sendUserData(UserData userData) {
         userDataConsumer.sendUserData(userData);
-        log.debug("Userdata was sent to soap service successfully.");
+        log.debug("Userdata was sent to external service successfully.");
     }
 
 

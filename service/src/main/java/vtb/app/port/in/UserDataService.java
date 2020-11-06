@@ -4,7 +4,6 @@ import vtb.app.domain.Security;
 import vtb.app.domain.UserData;
 
 public interface UserDataService {
-    void processToken(String token);
 
     UserData getUserData(String id);
 
