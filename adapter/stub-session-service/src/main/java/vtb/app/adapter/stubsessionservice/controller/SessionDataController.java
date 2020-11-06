@@ -1,15 +1,14 @@
-package vtb.app.adapter.controller;
+package vtb.app.adapter.stubsessionservice.controller;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vtb.app.adapter.model.SessionData;
-import vtb.app.adapter.service.SessionService;
+import vtb.app.adapter.stubsessionservice.model.SessionData;
+import vtb.app.adapter.stubsessionservice.service.SessionService;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -25,8 +24,8 @@ public class SessionDataController {
     private SessionService sessionService;
 
     @GetMapping(value = "/{sessionId}")
-    public ResponseEntity<SessionData> getContext( @Parameter(hidden = true) @RequestHeader(name="Authorization") String jwt,
-                                                   @PathVariable("sessionId") String sessionId){
+    public ResponseEntity<SessionData> getContext(@Parameter(hidden = true) @RequestHeader(name="Authorization") String jwt,
+                                                  @PathVariable("sessionId") String sessionId){
         log.info(String.format("%s %s", "GOT sessionID: ", sessionId));
         if (sessionId.equals("500")){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -6,6 +6,6 @@ import vtb.app.domain.UserData;
 import java.util.Optional;
 
 public interface UserDataRepository {
-    Optional<UserData> findBySessionId(String sessionId);
-    Optional<UserData> findBySessionId(String sessionId, Security security);
+    Optional<UserData> findById(String sessionId);
+    Optional<UserData> findById(String sessionId, Security security);
 }

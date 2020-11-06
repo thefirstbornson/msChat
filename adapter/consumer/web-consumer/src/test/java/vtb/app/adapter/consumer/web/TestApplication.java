@@ -1,4 +1,4 @@
-package vtb.app;
+package vtb.app.adapter.consumer.web;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

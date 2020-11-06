@@ -24,12 +24,12 @@ public class UserDataWebRepository implements UserDataRepository {
     private final Mapper<UserData, SessionData> mapper;
 
     @Override
-    public Optional<UserData> findBySessionId(String sessionId) {
+    public Optional<UserData> findById(String sessionId) {
         throw  new UnsupportedOperationException();
     }
 
     @Override
-    public Optional<UserData> findBySessionId(String sessionId, Security security) {
+    public Optional<UserData> findById(String sessionId, Security security) {
         UserData userData = null;
         try {
             JwtToken jwtToken = (JwtToken) security;

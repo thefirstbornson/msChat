@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import vtb.app.exception.UserDataNotFoundException;
+import vtb.app.service.exception.UserDataNotFoundException;
 
 import java.util.Date;
 import java.util.LinkedHashMap;

@@ -1,4 +1,4 @@
-package vtb.app.adapter.soap;
+package vtb.app.adapter.consumer.web;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
@@ -14,8 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.ws.soap.client.SoapFaultClientException;
 import ru.lanwen.wiremock.ext.WiremockResolver;
 import ru.lanwen.wiremock.ext.WiremockUriResolver;
-import vtb.app.TestApplication;
-import vtb.app.adapter.conf.WebServiceConfiguration;
+import vtb.app.adapter.consumer.web.conf.WebServiceConfiguration;
 import vtb.app.domain.UserData;
 import vtb.app.port.out.UserDataConsumer;
 import vtb.app.port.out.UserDataRepository;

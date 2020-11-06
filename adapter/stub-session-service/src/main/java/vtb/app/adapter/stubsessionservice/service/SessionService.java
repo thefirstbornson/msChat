@@ -1,14 +1,12 @@
-package vtb.app.adapter.service;
+package vtb.app.adapter.stubsessionservice.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import vtb.app.adapter.conf.UserSessionConf;
-import vtb.app.adapter.model.SessionData;
+import vtb.app.adapter.stubsessionservice.model.SessionData;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
