@@ -1,8 +1,6 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
 
     implementation project(':domain')
     implementation project(':service')
@@ -12,6 +10,7 @@ dependencies {
     implementation project(':stub-virt-dep')
     implementation project(':stub-session-service')
 
+    implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
 
     implementation "org.apache.commons:commons-lang3:${apacheCommonLangVersion}"
     implementation("com.google.guava:guava:30.0-jre")
