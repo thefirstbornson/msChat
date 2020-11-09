@@ -2,9 +2,7 @@ dependencies {
     implementation project(':domain')
     implementation project(':service')
 
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-
+    implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
     implementation 'org.springframework.boot:spring-boot-starter-web'
 //    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.2.32'
