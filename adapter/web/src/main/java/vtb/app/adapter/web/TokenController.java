@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vtb.app.adapter.web.exception.InvalidJWTException;
@@ -14,6 +13,7 @@ import vtb.app.domain.UserData;
 import vtb.app.port.in.UserDataService;
 
 import java.io.IOException;
+import java.util.Base64;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class TokenController {
     private String getSessionId(String jwt) {
         String sessionId;
         String payload = jwt.substring(jwt.indexOf(".")+1, jwt.lastIndexOf("."));
-        String decodedPayload = new String(new Base64().decode(payload.getBytes()));
+        String decodedPayload = new String(Base64.getDecoder().decode(payload.getBytes()));
         try {
             ObjectNode json = objectMapper.readValue(decodedPayload, ObjectNode.class);
             sessionId = json.get(CONTEXT_USER_UUID_JSON_FIELD).asText();
