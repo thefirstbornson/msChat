@@ -17,6 +17,18 @@ subprojects {
     dependencies {
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
         annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
+        testImplementation 'org.mockito:mockito-junit-jupiter:3.6.0'
+        testImplementation 'org.mockito:mockito-core:3.6.0'
+        testImplementation 'org.junit.platform:junit-platform-launcher:1.6.3'
+        testImplementation 'junit:junit:4.13.1'
+
+/*
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.3.2'
+        testImplementation 'org.mockito:mockito-junit-jupiter:2.25.1'
+        testImplementation 'org.mockito:mockito-core:2.24.5'
+        testImplementation 'org.junit.platform:junit-platform-launcher:1.4.2'
+*/
     }
 
 }

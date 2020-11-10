@@ -29,7 +29,7 @@ class UserDataServiceImplTest {
             .login("GY56Jdn")
             .bkoId("1984130510")
             .client(List.of(UserData.Client.builder().bkoId("2924130510").inn("12342342342341").build(),
-                    UserData.Client.builder().bkoId("23224130510").inn("123442342342341").build()))
+                    UserData.Client.builder().bkoId("23224cd 130510").inn("123442342342341").build()))
             .build();
     public static final String JWT = "Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0YW10YW1AdnRiLnJ1IiwiaXNzIjoiaHR0cHM6Ly9wY" +
             "XNzcG9ydC52dGIucnUvcGFzc3BvcnQiLCJleHAiOiIxNTk2NjQ3Njg5IiwiaWF0IjoiMTU5NjY0NzE5MCIsImp0aSI6IjVlMzRnaDU" +
